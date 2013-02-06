@@ -47,8 +47,9 @@
 	
 	  function query($sql) {
 		$res = mysql_query($sql, $this->link);
-		#$this->sql_error($res,$sql); 
-		//$this->error = mysql_error();
+		@$this->numrows = mysql_num_rows($res);
+		@$this->affrows = mysql_affected_rows($res);
+		$this->error = mysql_error();
 		$this->res = $res;
 		return $res;
 	  }
@@ -63,38 +64,31 @@
 		$result = mysql_result($this->res,0,0);
 		return $result;
 	  }
-	
-	  function dropdown($name,$vars,$curr) {
-		$o = "<select name=\"$name\">";
-		foreach($vars as $k => $v) {
-		  $o .= "<option value=\"$k\"";
-		  if($curr == $k) $o .= " selected";
-		  $o .= ">$v</option>";
-		}
-		$o .= "</select>";
-		return $o;
-	  }
-	
-	  function get_id() {
-		$this->lastid = mysql_insert_id();
-		return  $this->lastid;
-	  }
-	
-	  function get_enum($table,$col) {
-		$sql = "SHOW COLUMNS FROM $table LIKE '$col'";
-		$result=mysql_query($sql);
-		if(mysql_num_rows($result)>0){
-		$row=mysql_fetch_row($result);
-		  $options=explode("','",preg_replace("/(enum|set)\('(.+?)'\)/","\\2",$row[1]));
-		}
-		return $options;
-	  }
+
 	} //end db class
 	
 	//User Class
 	class User{
 		public $userid;
 		public $username;
+		public $authenticated = false;
+		
+		//Gets a User
+		function getUser($db, $userid){
+			$sql = "select * from `users` where id='".$userid."'";
+			$db->query($sql);
+			$user = array();
+			while($row = $db->nextRow()) {
+				$user = $db->row;
+			}
+			
+			//Set object variables
+			$this->userid = $user['id'];
+			$this->username = $user['username'];
+			$this->authenticated = true;
+			
+			return $user;
+		}
 		
 		//Returns an array of polls for this user
 		function getPolls($db){
@@ -105,6 +99,25 @@
 				$polls[] = $db->row;
 			}
 			return $polls;
+		}
+		
+		//Authenticates a new user
+		function authenticate($db, $data){
+			$sql = "select * from `users` where username='".$data['username']."' and password='".$data['password']."'";
+			$db->query($sql);
+			$user = array();
+			echo "FOUND ".$db->numrows." USERS!";
+			if($db->numrows > 0){
+				while($row = $db->nextRow()) {
+					$user = $db->row;
+				}
+				
+				$this->userid = $user['id'];
+				$this->username = $user['username'];
+				return true;
+			} else {
+				return false;
+			}
 		}
 	} //end user class
 	

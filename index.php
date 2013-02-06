@@ -24,6 +24,19 @@
 <body>
 	<div id="main">
     	<?
+		if(!$_SESSION['loggedin']){
+			//Show Login Form
+			if(!empty($login_error)) echo $login_error;
+		?>
+        	<h1><img src="images/login_icon.gif" width="25" height="25" alt="Login" /> Polls Login</h1>
+        	<form action="index.php" method="post">
+            	<b>Username:</b> <input type="text" class="textinput" name="username" maxlength="255" /><br />
+                <b>Password:</b> <input type="password" class="textinput" name="password" maxlength="255" /><br />
+                <input type="submit" value="Login" name="s_login" />
+                <p>Don't have a login? <a href="?option=register">Register Here.</a></p>
+            </form>
+    	<?
+		} else {
 			if(!$option){
 		?>
         <h1><img src="images/menu.png" width="25" height="25" alt="Menu" /> Main Menu</h1>
@@ -156,6 +169,7 @@
         <?
 				}
 			}
+		}
 		?>
     </div>
 </body>

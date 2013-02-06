@@ -4,10 +4,11 @@
 	//Create a Database Connection
 	$db = new mydb();
 	
-	//Create the User
+	//Handle Login
 	$user = new User();
-	$user->userid = 1;			//Temp setting
-	$user->username = 'jared';	//Temp setting
+	if($_SESSION['loggedin']){
+		$user->getUser($db, $_SESSION['userid']);
+	}
 	
 	//Handle the option selection
 	if($_REQUEST['option'] == 'create'){
@@ -63,5 +64,18 @@
 		$polls = new Polls();
 		
 		$polls->deletePoll($db, $_POST);
+	} elseif(isset($_POST['s_login'])){
+		//User Logging In
+			
+		//Create the User
+		$user->authenticated = $user->authenticate($db, $_POST);
+		if($user->authenticated) {
+			$_SESSION['loggedin'] = true;
+			$_SESSION['userid'] = $user->userid;
+		} else {
+			$login_error = "<p><b style='color:red'>You have entered an incorrect login. Please try again.</b></p>";
+		}
 	}
+	
+
 ?>
