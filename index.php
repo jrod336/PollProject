@@ -7,7 +7,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Voting Poll -- Menu</title>
-<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript">
+	function verifyPoll(){
+		var r1=document.forms["myForm"]["r1"].value;
+		var r2=document.forms["myForm"]["r2"].value;
+		if (r1==null || r1=="" || r2==null || r2=="")
+		  {
+		  alert("You must fill out at least Results 1 and 2");
+		  return false;
+		  }	
+	}
+</script>
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 
@@ -30,7 +40,7 @@
 		?>
         	<h1>Create a New Poll</h1>
             <h3>Please fill out the form below. You must choose at least 2 answers per poll.</h3>
-            <form action="index.php" method="post">
+            <form name="myForm" action="index.php" method="post" onsubmit="return verifyPoll()">
             	<div class="menucontainer">
                 	<div>
                     	<b class="question_label">Question:</b> <textarea name="question" class="textbox"></textarea>
@@ -58,7 +68,7 @@
             <?
 				} else {
 			?>
-        	<form action="index.php" method="post">
+        	<form name="myForm" action="index.php" method="post" onsubmit="return verifyPoll()">
             	<div class="menucontainer">
                 	<div>
                     	<b class="question_label">Question:</b> <textarea name="question" class="textbox"><?= $mypoll->question ?></textarea>
