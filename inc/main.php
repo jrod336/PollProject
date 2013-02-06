@@ -52,7 +52,7 @@
 		$this->res = $res;
 		return $res;
 	  }
-	
+
 	  function nextRow() {
 		@$this->row = mysql_fetch_array($this->res);
 		$status = is_array($this->row);
@@ -118,16 +118,22 @@
 		public $r3;
 		public $r4;
 		public $r5;
+		public $totalvotes = 0;
 		
 		//Returns an array of polls for this user
 		function getPoll($db, $pollid){
 			$sql = "select * from `polls` where id='".$pollid."'";
 			$db->query($sql);
 			$poll = array();
-			$poll = $db->oneresult();
+			while($row = $db->nextRow()) {
+				$poll = $db->row;
+			}
+			
+			//Set object variables
 			$this->pollid = $poll['id'];
 			$this->question = $poll['question'];
 			$this->userid = $poll['userid'];
+			
 			return $poll;
 		}
 		
@@ -135,9 +141,10 @@
 		function getItems($db, $pollid){
 			$sql = "select * from `poll_items` where pollid='".$pollid."'";
 			$db->query($sql);
-			$polls = array();
+			$poll_items = array();
 			while($row = $db->nextRow()) {
 				$data = $db->row;
+				//Set object variables
 				if($data['value'] == 1) $this->r1 = $data['label']; 
 				if($data['value'] == 2) $this->r2 = $data['label']; 
 				if($data['value'] == 3) $this->r3 = $data['label']; 
@@ -147,6 +154,18 @@
 			}
 			$this->items = $poll_items;
 			return $poll_items;
+		}
+		
+		//Returns an array of votes for a specific poll
+		function getVotes($db, $pollid){
+			$sql = "select * from `votes` where pollid='".$pollid."'";
+			$db->query($sql);
+			$polls = array();
+			while($row = $db->nextRow()) {
+				$votes[] = $db->row;
+			}
+			$this->totalvotes = sizeof($votes);
+			return $votes;
 		}
 		
 	}	//end poll class

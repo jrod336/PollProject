@@ -19,12 +19,14 @@
 			$pollid = $_REQUEST['pollid'];
 			$mypoll = new Poll();
 			$mypoll->getPoll($db, $pollid);
-			$mypollitems->getItems($db, $pollid);
+			$mypoll->getItems($db, $pollid);
+			$mypoll->getVotes($db, $pollid);
 		} else{
 			$pollid = false;
 		}
 	} elseif($_REQUEST['option'] == 'delete'){
 		$option = 'delete';
+		$mypolls = new Polls();
 		$mypolls = $user->getPolls($db);
 	} else {
 		$option = false;

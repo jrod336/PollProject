@@ -42,6 +42,7 @@
                     <b>Result 4:</b> <input type="text" class="textinput" name="r4" maxlength="255" /><br />
                     <b>Result 5:</b> <input type="text" class="textinput" name="r5" maxlength="255" /><br />
                 </div>
+                <input type="submit" value="Create Poll" name="s_create" />
             </form>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
@@ -49,6 +50,13 @@
 				if($pollid != false){
 		?>
         	<h1>Update an Existing Poll #<?= $pollid ?></h1>
+            <?
+				if($poll->totalvotes > 0){
+			?>
+            <h3>You cannot update a poll with votes.</h3>
+            <?
+				} else {
+			?>
         	<form action="index.php" method="post">
             	<div class="menucontainer">
                 	<div>
@@ -61,14 +69,39 @@
                     <b>Result 4:</b> <input type="text" class="textinput" name="r4" maxlength="255" value="<?= $mypoll->r4 ?>" /><br />
                     <b>Result 5:</b> <input type="text" class="textinput" name="r5" maxlength="255" value="<?= $mypoll->r5 ?>" /><br />
                 </div>
+                <input type="submit" value="Update Poll" name="s_update" />
                 <input type="hidden" name="id" value="<?= $pollid ?>" />
             </form>
+            <?
+				}
+			?>
             <p><a href="index.php">&laquo; Back to Main Menu</a> &bull; <a href="?option=update">&laquo; Back to Poll List</a></p>
         <?
 				} else {
 		?>
         	<h1>Update an Existing Poll</h1>
-            <p><b><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> poll(s)</p>
+            <h3><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> poll(s)</h3>
+            	<div class="menucontainer">
+                	<?
+						if(sizeof($mypolls) > 0){
+					?>
+                    	<ul>
+                    <?
+							foreach($mypolls as $v){
+					?>
+                    		<li><a href="?option=update&pollid=<?= $v['id'] ?>"><?= $v['question'] ?></a></li>
+                    <?
+							}
+					?>
+                    	</ul>
+                    <?
+						} else {
+					?>
+                    	<p><i>You have no polls to select</i></p>
+                    <?
+						}
+					?>
+                </div>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
 				}
@@ -87,6 +120,9 @@
 		?>
         	<h1>Delete an Existing Poll</h1>
             <p><b><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> polls</p>
+            	<div class="menucontainer">
+                
+                </div>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
 				}
