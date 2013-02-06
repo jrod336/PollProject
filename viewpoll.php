@@ -18,20 +18,31 @@
 			//If vote found, display results
 			if($voteFound){
 	?>
+    		<h3>Poll Results</h3>
+            <p><b><?= $poll->question ?></b></p>
             <ul class="results">
-                <li>Cheeseburger Votes</li>
-                <li>Milkshake Votes</li>
+               <? if(!empty($poll->r1)) { ?><li><?= $poll->$r1 ?> X Votes</li><? } ?>
+               <? if(!empty($poll->r2)) { ?><li><?= $poll->$r2 ?> X Votes</li><? } ?>
+               <? if(!empty($poll->r3)) { ?><li><?= $poll->$r3 ?> X Votes</li><? } ?>
+               <? if(!empty($poll->r4)) { ?><li><?= $poll->$r4 ?> X Votes</li><? } ?>
+               <? if(!empty($poll->r5)) { ?><li><?= $poll->$r5 ?> X Votes</li><? } ?>
             </ul>
 		<?
 			//Check whether to display the poll or not
 			} else {
 		?>
 				<h3>Please Vote Below</h3>
-				<p><b>What is your favorite food?</b></p>
+				 <form action="viewpoll.php" method="post">
+                 <p><b><?= $poll->question ?></b></p
 				<ul>
-					<li>Cheeseburger</li>
-                    <li>Milkshake</li>
+					<? if(!empty($poll->r1)) { ?><li><input type="radio" name="vote" value="1" /> <?= $poll->$r1 ?></li><? } ?>
+				    <? if(!empty($poll->r2)) { ?><li><input type="radio" name="vote" value="2" /> <?= $poll->$r2 ?></li><? } ?>
+                    <? if(!empty($poll->r3)) { ?><li><input type="radio" name="vote" value="3" /> <?= $poll->$r3 ?></li><? } ?>
+                    <? if(!empty($poll->r4)) { ?><li><input type="radio" name="vote" value="4" /> <?= $poll->$r4 ?></li><? } ?>
+                    <? if(!empty($poll->r5)) { ?><li><input type="radio" name="vote" value="5" /> <?= $poll->$r5 ?></li><? } ?>
 				</ul>
+                	<input type="hidden" value="pollid" value="<?= $poll->pollid ?>" />
+                </form>
 	<?
 			}
 		} else {

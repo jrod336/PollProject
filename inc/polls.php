@@ -12,6 +12,9 @@
 	if(isset($_REQUEST['pollid'])){
 		$pollid = $_REQUEST['pollid'];
 		$option = 'viewpoll';
+		$poll = new Poll();
+		$poll->getPoll($db, $pollid);
+		$poll->getItems($db, $pollid);
 	} else {
 		$option = 'viewallpolls';
 	}
