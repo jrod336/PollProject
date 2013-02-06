@@ -4,6 +4,12 @@
 	//Create a Database Connection
 	$db = new mydb();
 	
+	//Handle Logout
+	if($_REQUEST['option'] == 'logout'){
+		$_SESSION['loggedin'] = false;
+		unset($_SESSION['userid']);
+	}
+	
 	//Handle Login
 	$user = new User();
 	if($_SESSION['loggedin']){
@@ -14,6 +20,9 @@
 	if($_REQUEST['option'] == 'create'){
 		//Create a new poll
 		$option = 'create';
+	} elseif($_REQUEST['option'] == 'register'){
+		//Register a new User
+		$option = 'register';
 	} elseif($_REQUEST['option'] == 'update'){
 		//Update Polls
 		$option = 'update';
@@ -74,6 +83,15 @@
 			$_SESSION['userid'] = $user->userid;
 		} else {
 			$login_error = "<p><b style='color:red'>You have entered an incorrect login. Please try again.</b></p>";
+		}
+	} elseif(isset($_POST['s_register'])){
+		//Register a new user
+		if($user->checkUsername($db, $_POST)){
+			$user->registerUser($db, $_POST);
+			$_SESSION['loggedin'] = true;
+		} else {
+			$login_error = "<p><b style='color:red'>This username is already in use. Please try again.</b></p>";
+			$option = 'register';
 		}
 	}
 	

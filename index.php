@@ -27,6 +27,19 @@
 		if(!$_SESSION['loggedin']){
 			//Show Login Form
 			if(!empty($login_error)) echo $login_error;
+			if($option == 'register') {
+				//Register a New User
+				
+		?>
+        	<h1><img src="images/login_icon.gif" width="25" height="25" alt="Login" /> User Registration</h1>
+        	<form action="index.php" method="post">
+            	<b>Username:</b> <input type="text" class="textinput" name="username" maxlength="255" /><br />
+                <b>Password:</b> <input type="password" class="textinput" name="password" maxlength="255" /><br />
+                <input type="submit" value="Register a New User" name="s_register" />
+                <p>Already have a login? <a href="index.php">Login Here.</a></p>
+            </form>
+        <?
+			} else {
 		?>
         	<h1><img src="images/login_icon.gif" width="25" height="25" alt="Login" /> Polls Login</h1>
         	<form action="index.php" method="post">
@@ -36,6 +49,7 @@
                 <p>Don't have a login? <a href="?option=register">Register Here.</a></p>
             </form>
     	<?
+			}
 		} else {
 			if(!$option){
 		?>
@@ -45,6 +59,7 @@
                 <li><a href="?option=create">Create a New Poll</a></li>
                 <li><a href="?option=update">Update an Existing Poll</a></li>
                 <li><a href="?option=delete">Delete an Existing Poll</a></li>
+                <li><a href="?option=logout">Logout</a></li>
                 <li><a href="viewpoll.php">View all Polls</a></li>
             </ul>
         </div>
@@ -130,6 +145,7 @@
         <?
 				}
 			} elseif($option == 'delete') {
+				//Delete a Poll
 				if($pollid != false){
 		?>
         	<h1>Delete an Existing Poll #<?= $pollid ?></h1>

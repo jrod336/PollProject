@@ -73,6 +73,18 @@
 		public $username;
 		public $authenticated = false;
 		
+		//check for username duplicate
+		function checkUsername($db, $data){
+			$sql = "select * from `users` where username='".$data['username']."'";
+			$db->query($sql);
+			$user = array();
+			if($db->numrows == 0){
+				return true;
+			} else {
+				return false;
+			}
+		}
+				
 		//Gets a User
 		function getUser($db, $userid){
 			$sql = "select * from `users` where id='".$userid."'";
@@ -88,6 +100,17 @@
 			$this->authenticated = true;
 			
 			return $user;
+		}
+		
+		//Register a new User
+		function registerUser($db, $data){
+			$dt = date("Y-m-d H:i:s");
+			$sql = "insert into `users` (username, password, datecreated) VALUES('".$data['username']."', '".$data['password']."', '".$dt."')";
+			$db->query($sql);
+			
+			//Set object variables
+			$this->username = $user['username'];
+			$this->authenticated = true;
 		}
 		
 		//Returns an array of polls for this user
@@ -106,7 +129,6 @@
 			$sql = "select * from `users` where username='".$data['username']."' and password='".$data['password']."'";
 			$db->query($sql);
 			$user = array();
-			echo "FOUND ".$db->numrows." USERS!";
 			if($db->numrows > 0){
 				while($row = $db->nextRow()) {
 					$user = $db->row;
