@@ -131,7 +131,7 @@
 			
 			//Set object variables
 			$this->pollid = $poll['id'];
-			$this->question = $poll['question'];
+			$this->question = stripslashes($poll['question']);
 			$this->userid = $poll['userid'];
 			
 			return $poll;
@@ -145,11 +145,11 @@
 			while($row = $db->nextRow()) {
 				$data = $db->row;
 				//Set object variables
-				if($data['value'] == 1) $this->r1 = $data['label']; 
-				if($data['value'] == 2) $this->r2 = $data['label']; 
-				if($data['value'] == 3) $this->r3 = $data['label']; 
-				if($data['value'] == 4) $this->r4 = $data['label']; 
-				if($data['value'] == 5) $this->r5 = $data['label']; 
+				if($data['value'] == 1) $this->r1 = stripslashes($data['label']); 
+				if($data['value'] == 2) $this->r2 = stripslashes($data['label']); 
+				if($data['value'] == 3) $this->r3 = stripslashes($data['label']); 
+				if($data['value'] == 4) $this->r4 = stripslashes($data['label']); 
+				if($data['value'] == 5) $this->r5 = stripslashes($data['label']); 
 				$poll_items[] = $data;
 			}
 			$this->items = $poll_items;
@@ -184,6 +184,42 @@
 			}
 			$this->count = sizeof($polls);
 			return $polls;
+		}
+		
+		//Adds a Poll
+		function addPoll($db, $data){
+			$dt = date("Y-m-d H:i:s");
+			
+			//Insert Poll
+			$sql = "insert into `polls` (userid, question, dt) VALUES('".$data['userid']."', '".addslashes($data['question'])."', '".$dt."')";
+			$db->query($sql);
+			
+			//Get ID of new poll
+			$sql = "select id from `polls` where userid='".$data['userid']."' and question='".addslashes($data['question'])."' and dt='".$dt."'";
+			$db->query($sql);
+			$pollid = $db->oneResult();
+			
+			//Insert Items
+			if(!empty($data['r1']))	{
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('1', '".$data['r1']."', '".$pollid."')";
+				$db->query($sql);
+			}
+			if(!empty($data['r2']))	{
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('2', '".$data['r2']."', '".$pollid."')";
+				$db->query($sql);
+			}
+			if(!empty($data['r3']))	{
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('3', '".$data['r3']."', '".$pollid."')";
+				$db->query($sql);
+			}
+			if(!empty($data['r4']))	{
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('4', '".$data['r4']."', '".$pollid."')";
+				$db->query($sql);
+			}
+			if(!empty($data['r5']))	{
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('5', '".$data['r5']."', '".$pollid."')";
+				$db->query($sql);
+			}
 		}
 	}	//end polls class
 

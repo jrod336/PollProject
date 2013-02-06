@@ -42,6 +42,7 @@
                     <b>Result 4:</b> <input type="text" class="textinput" name="r4" maxlength="255" /><br />
                     <b>Result 5:</b> <input type="text" class="textinput" name="r5" maxlength="255" /><br />
                 </div>
+                <input type="hidden" name="userid" value="<?= $user->userid ?>" />
                 <input type="submit" value="Create Poll" name="s_create" />
             </form>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
@@ -111,7 +112,7 @@
         	<h1>Delete an Existing Poll #<?= $pollid ?></h1>
             <h3>Are you sure you want to delete this poll?</h3>
             <form action="index.php">
-            	<input type="submit" value="Confirm Deletion" name="s_delete" /> <input type="submit" value="Cancel Deletion" name="s_delete_cancel" />
+            	<input type="submit" value="Confirm Deletion" name="s_delete" />
             	<input type="hidden" name="id" value="<?= $pollid ?>" />
             </form>
         	<p><a href="index.php">&laquo; Back to Main Menu</a> &bull; <a href="?option=delete">&laquo; Back to Poll List</a></p>
@@ -121,7 +122,25 @@
         	<h1>Delete an Existing Poll</h1>
             <p><b><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> polls</p>
             	<div class="menucontainer">
-                
+                	<?
+						if(sizeof($mypolls) > 0){
+					?>
+                    	<ul>
+                    <?
+							foreach($mypolls as $v){
+					?>
+                    		<li><a href="?option=delete&pollid=<?= $v['id'] ?>"><?= $v['question'] ?></a></li>
+                    <?
+							}
+					?>
+                    	</ul>
+                    <?
+						} else {
+					?>
+                    	<p><i>You have no polls to select</i></p>
+                    <?
+						}
+					?>
                 </div>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
