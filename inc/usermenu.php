@@ -6,7 +6,8 @@
 	
 	//Create the User
 	$user = new User();
-	$user->userid = 1;	//Temp setting
+	$user->userid = 1;			//Temp setting
+	$user->username = 'jared';	//Temp setting
 	
 	//Handle the option selection
 	if($_REQUEST['option'] == 'create'){

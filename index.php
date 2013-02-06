@@ -16,26 +16,30 @@
     	<?
 			if(!$option){
 		?>
-        <h1>Main Menu</h1>
-        <ul>
-            <li><a href="?option=create">Create a New Poll</a></li>
-            <li><a href="?option=update">Update an Existing Poll</a></li>
-            <li><a href="?option=delete">Delete an Existing Poll</a></li>
-        </ul>
+        <h1><img src="images/menu.png" width="25" height="25" alt="Menu" /> Main Menu</h1>
+        <div class="menucontainer">
+            <ul class="mainmenu">
+                <li><a href="?option=create">Create a New Poll</a></li>
+                <li><a href="?option=update">Update an Existing Poll</a></li>
+                <li><a href="?option=delete">Delete an Existing Poll</a></li>
+            </ul>
+        </div>
         <?
 			} elseif($option == 'create') {
 		?>
-        	<h1>Create a Poll</h1>
+        	<h1>Create a New Poll</h1>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
 			} elseif($option == 'update') {
 		?>
-        	<h1>Update a Poll</h1>
+        	<h1>Update an Existing Poll</h1>
+            <p><b><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> poll(s)</p>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
 			} elseif($option == 'delete') {
 		?>
-        	<h1>Delete a Poll</h1>
+        	<h1>Delete an Existing Poll</h1>
+            <p><b><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> polls</p>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
 			}

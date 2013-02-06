@@ -6,6 +6,10 @@ body{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
+h1{
+	color: navy;
+}
+
 h3{
 	text-align:center;
 	font-size: 18px;
@@ -24,4 +28,26 @@ h3{
 
 .results{
 
+}
+
+.menucontainer{
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+}
+
+.mainmenu{
+	text-align: left;
+	list-style-image: url(../images/create_icon.gif);
+}
+
+.menucontainer a{
+	font-size: 18px;
+	color: blue;
+	text-decoration: underline;
+}
+
+.menucontainer a:hover{
+	color: #333333;
+	text-decoration: none;
 }
