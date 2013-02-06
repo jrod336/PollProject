@@ -91,6 +91,21 @@
 	  }
 	} //end db class
 	
-	$db = new mydb();
+	//User Class
+	class User{
+		public $userid;
+		public $username;
+		
+		//Returns an array of polls for this user
+		function getPolls($db){
+			$sql = "select * from `polls` where userid='".$this->userid."'";
+			$db->query($sql);
+			$polls = array();
+			while($row = $db->nextRow()) {
+				$polls[] = $row['friend_id'];
+			}
+			return $polls;
+		}
+	}
 
 ?>

@@ -1,31 +1,23 @@
 <?
 	//User Menu Controller
-	class User{
-		public $userid;
-		public $username;
-		
-		//Returns an array of polls for this user
-		public function getPolls(){
-			$sql = "select * from `polls` where userid='".$this->userid."'";
-			$db->query($sql);
-			$polls = array();
-			while($row = $db->nextRow()) {
-				$polls[] = $row['friend_id'];
-			}
-			return $polls;
-		}
-	}
 	
+	//Create a Database Connection
+	$db = new mydb();
+	
+	//Create the User
 	$user = new User();
 	$user->userid = 1;	//Temp setting
 	
+	//Handle the option selection
 	if($_REQUEST['option'] == 'create'){
 		$option = 'create';
 	} elseif($_REQUEST['option'] == 'update'){
 		$option = 'update';
-		$mypolls = $user->getPolls();
+		$mypolls = $user->getPolls($db);
 	} elseif($_REQUEST['option'] == 'delete'){
 		$option = 'delete';
-		$mypolls = $user->getPolls();
+		$mypolls = $user->getPolls($db);
+	} else {
+		$option = false;
 	}
 ?>

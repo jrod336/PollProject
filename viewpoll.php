@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Voting Poll -- View Poll</title>
 <script type="text/javascript" src="js/ajax.js"></script>
-<link type="text/css" href="css/styles.css" />
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 
 <body>
