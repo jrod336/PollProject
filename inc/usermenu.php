@@ -5,8 +5,8 @@
 		public $username;
 		
 		//Returns an array of polls for this user
-		public getPolls(){
-			$sql = "select * from `polls` where userid='".$this->$userid."'";
+		public function getPolls(){
+			$sql = "select * from `polls` where userid='".$this->userid."'";
 			$db->query($sql);
 			$polls = array();
 			while($row = $db->nextRow()) {
@@ -23,7 +23,9 @@
 		$option = 'create';
 	} elseif($_REQUEST['option'] == 'update'){
 		$option = 'update';
+		$mypolls = $user->getPolls();
 	} elseif($_REQUEST['option'] == 'delete'){
 		$option = 'delete';
+		$mypolls = $user->getPolls();
 	}
 ?>
