@@ -11,34 +11,41 @@
 </head>
 
 <body>
+	<div id="main">
 	<?
-		//If vote found, display results
-		if($poll->voteFound($pollid)){
+		$pollselected = false; 		//TEMP VARIABLE
+		if($pollselected){
+			$votefound = false;		//TEMP VARIABLE
+			//If vote found, display results
+			if($voteFound){
 	?>
-    	<div class="container">
-        	<ul class="results">
-            	<?
-					foreach($poll->getResults($pollid) as $v){
-				?>
-                	<li></li>
-                <?
-					}
-				?>
+            <ul class="results">
+                <li>Cheeseburger Votes</li>
+                <li>Milkshake Votes</li>
             </ul>
-        </div>
-    <?
-		//Check whether to display the poll or not
+		<?
+			//Check whether to display the poll or not
+			} else {
+		?>
+				<h3>Please Vote Below</h3>
+				<p><b>What is your favorite food?</b></p>
+				<ul>
+					<li>Cheeseburger</li>
+                    <li>Milkshake</li>
+				</ul>
+	<?
+			}
 		} else {
+			//Display list of all available polls
 	?>
-    	<div class="container">
-        	<h3>Please Vote Below</h3>
-            <p><b>What is your favorite food?</b></p>
+    		<h3>Plese select a poll</h3>
             <ul>
-            	<li>Cheeseburger</li>
+            	<li>Poll 1</li>
+                <li>Poll 2</li>
             </ul>
-        </div>
     <?
 		}
 	?>
+    </div>
 </body>
 </html>

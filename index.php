@@ -1,5 +1,6 @@
 <?
 	require 'inc/main.php';
+	require 'inc/usermenu.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,6 +12,13 @@
 </head>
 
 <body>
-	<h3>Main Menu</h3>
+	<div id="main">
+        <h1>Main Menu</h1>
+        <ul>
+            <li><a href="?option=create">Create a New Poll</a></li>
+            <li><a href="?option=update">Update an Existing Poll</a></li>
+            <li><a href="?option=delete">Delete an Existing Poll</a></li>
+        </ul>
+    </div>
 </body>
 </html>
