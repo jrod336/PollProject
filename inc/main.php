@@ -113,6 +113,47 @@
 		public $pollid;
 		public $question;
 		public $userid;
+		public $r1;
+		public $r2;
+		public $r3;
+		public $r4;
+		public $r5;
+		
+		//Returns an array of polls for this user
+		function getPoll($db, $pollid){
+			$sql = "select * from `polls` where id='".$pollid."'";
+			$db->query($sql);
+			$poll = array();
+			$poll = $db->oneresult();
+			$this->pollid = $poll['id'];
+			$this->question = $poll['question'];
+			$this->userid = $poll['userid'];
+			return $poll;
+		}
+		
+		//Returns an array of the items for this poll
+		function getItems($db, $pollid){
+			$sql = "select * from `poll_items` where pollid='".$pollid."'";
+			$db->query($sql);
+			$polls = array();
+			while($row = $db->nextRow()) {
+				$data = $db->row;
+				if($data['value'] == 1) $this->r1 = $data['label']; 
+				if($data['value'] == 2) $this->r2 = $data['label']; 
+				if($data['value'] == 3) $this->r3 = $data['label']; 
+				if($data['value'] == 4) $this->r4 = $data['label']; 
+				if($data['value'] == 5) $this->r5 = $data['label']; 
+				$poll_items[] = $data;
+			}
+			$this->items = $poll_items;
+			return $poll_items;
+		}
+		
+	}	//end poll class
+	
+	//Polls Class
+	class Polls{
+		public $count;
 		
 		//Returns an array of polls for this user
 		function getPolls($db){
@@ -122,8 +163,9 @@
 			while($row = $db->nextRow()) {
 				$polls[] = $db->row;
 			}
+			$this->count = sizeof($polls);
 			return $polls;
 		}
-	}	//end poll class
+	}	//end polls class
 
 ?>

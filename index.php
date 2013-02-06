@@ -29,20 +29,67 @@
 			} elseif($option == 'create') {
 		?>
         	<h1>Create a New Poll</h1>
+            <h3>Please fill out the form below. You must choose at least 2 answers per poll.</h3>
+            <form action="index.php" method="post">
+            	<div class="menucontainer">
+                	<div>
+                    	<b class="question_label">Question:</b> <textarea name="question" class="textbox"></textarea>
+                     </div>
+                    <br />
+                	<b>Result 1:</b> <input type="text" class="textinput" name="r1" maxlength="255" /><br />
+                    <b>Result 2:</b> <input type="text" class="textinput" name="r2" maxlength="255" /><br />
+                    <b>Result 3:</b> <input type="text" class="textinput" name="r3" maxlength="255" /><br />
+                    <b>Result 4:</b> <input type="text" class="textinput" name="r4" maxlength="255" /><br />
+                    <b>Result 5:</b> <input type="text" class="textinput" name="r5" maxlength="255" /><br />
+                </div>
+            </form>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
 			} elseif($option == 'update') {
+				if($pollid != false){
+		?>
+        	<h1>Update an Existing Poll #<?= $pollid ?></h1>
+        	<form action="index.php" method="post">
+            	<div class="menucontainer">
+                	<div>
+                    	<b class="question_label">Question:</b> <textarea name="question" class="textbox"><?= $mypoll->question ?></textarea>
+                     </div>
+                    <br />
+                	<b>Result 1:</b> <input type="text" class="textinput" name="r1" maxlength="255" value="<?= $mypoll->r1 ?>" /><br />
+                    <b>Result 2:</b> <input type="text" class="textinput" name="r2" maxlength="255" value="<?= $mypoll->r2 ?>" /><br />
+                    <b>Result 3:</b> <input type="text" class="textinput" name="r3" maxlength="255" value="<?= $mypoll->r3 ?>" /><br />
+                    <b>Result 4:</b> <input type="text" class="textinput" name="r4" maxlength="255" value="<?= $mypoll->r4 ?>" /><br />
+                    <b>Result 5:</b> <input type="text" class="textinput" name="r5" maxlength="255" value="<?= $mypoll->r5 ?>" /><br />
+                </div>
+                <input type="hidden" name="id" value="<?= $pollid ?>" />
+            </form>
+            <p><a href="index.php">&laquo; Back to Main Menu</a> &bull; <a href="?option=update">&laquo; Back to Poll List</a></p>
+        <?
+				} else {
 		?>
         	<h1>Update an Existing Poll</h1>
             <p><b><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> poll(s)</p>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
+				}
 			} elseif($option == 'delete') {
+				if($pollid != false){
+		?>
+        	<h1>Delete an Existing Poll #<?= $pollid ?></h1>
+            <h3>Are you sure you want to delete this poll?</h3>
+            <form action="index.php">
+            	<input type="submit" value="Confirm Deletion" name="s_delete" /> <input type="submit" value="Cancel Deletion" name="s_delete_cancel" />
+            	<input type="hidden" name="id" value="<?= $pollid ?>" />
+            </form>
+        	<p><a href="index.php">&laquo; Back to Main Menu</a> &bull; <a href="?option=delete">&laquo; Back to Poll List</a></p>
+        <?
+				} else {
 		?>
         	<h1>Delete an Existing Poll</h1>
             <p><b><?= $user->username ?></b> you have <?= sizeof($mypolls) ?> polls</p>
         	<p><a href="index.php">&laquo; Back to Main Menu</a></p>
         <?
+				}
 			}
 		?>
     </div>

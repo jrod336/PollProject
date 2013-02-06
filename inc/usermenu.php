@@ -15,6 +15,14 @@
 	} elseif($_REQUEST['option'] == 'update'){
 		$option = 'update';
 		$mypolls = $user->getPolls($db);
+		if($_REQUEST['pollid']){
+			$pollid = $_REQUEST['pollid'];
+			$mypoll = new Poll();
+			$mypoll->getPoll($db, $pollid);
+			$mypollitems->getItems($db, $pollid);
+		} else{
+			$pollid = false;
+		}
 	} elseif($_REQUEST['option'] == 'delete'){
 		$option = 'delete';
 		$mypolls = $user->getPolls($db);

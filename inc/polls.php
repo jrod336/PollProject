@@ -5,8 +5,8 @@
 	$db = new mydb();
 	
 	//Create the User
-	$poll = new Poll();
-	$mypolls = $poll->getPolls($db);
+	$polls = new Polls();
+	$mypolls = $polls->getPolls($db);
 	
 	//Handle the option selection
 	if(isset($_REQUEST['pollid'])){
