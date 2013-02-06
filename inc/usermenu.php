@@ -55,7 +55,13 @@
 		$polls->addPoll($db, $_POST);
 	} elseif(isset($_POST['s_update'])){
 		//Update a Poll Submitted
+		$polls = new Polls();
+		
+		$polls->updatePoll($db, $_POST);
 	} elseif(isset($_POST['s_delete'])){
 		//Delete a Poll Submitted
+		$polls = new Polls();
+		
+		$polls->deletePoll($db, $_POST);
 	}
 ?>

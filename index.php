@@ -121,7 +121,7 @@
 		?>
         	<h1>Delete an Existing Poll #<?= $pollid ?></h1>
             <h3>Are you sure you want to delete this poll?</h3>
-            <form action="index.php">
+            <form action="index.php" method="post">
             	<input type="submit" value="Confirm Deletion" name="s_delete" />
             	<input type="hidden" name="id" value="<?= $pollid ?>" />
             </form>

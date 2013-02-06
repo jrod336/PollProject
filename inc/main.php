@@ -201,25 +201,88 @@
 			
 			//Insert Items
 			if(!empty($data['r1']))	{
-				$sql = "insert into `poll_items` (value, label, pollid) VALUES('1', '".$data['r1']."', '".$pollid."')";
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('1', '".addslashes($data['r1'])."', '".$pollid."')";
 				$db->query($sql);
 			}
 			if(!empty($data['r2']))	{
-				$sql = "insert into `poll_items` (value, label, pollid) VALUES('2', '".$data['r2']."', '".$pollid."')";
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('2', '".addslashes($data['r2'])."', '".$pollid."')";
 				$db->query($sql);
 			}
 			if(!empty($data['r3']))	{
-				$sql = "insert into `poll_items` (value, label, pollid) VALUES('3', '".$data['r3']."', '".$pollid."')";
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('3', '".addslashes($data['r3'])."', '".$pollid."')";
 				$db->query($sql);
 			}
 			if(!empty($data['r4']))	{
-				$sql = "insert into `poll_items` (value, label, pollid) VALUES('4', '".$data['r4']."', '".$pollid."')";
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('4', '".addslashes($data['r4'])."', '".$pollid."')";
 				$db->query($sql);
 			}
 			if(!empty($data['r5']))	{
-				$sql = "insert into `poll_items` (value, label, pollid) VALUES('5', '".$data['r5']."', '".$pollid."')";
+				$sql = "insert into `poll_items` (value, label, pollid) VALUES('5', '".addslashes($data['r5'])."', '".$pollid."')";
 				$db->query($sql);
 			}
+		}
+		
+		//Updates a Poll
+		function updatePoll($db, $data){	
+	
+			//Update Poll
+			$pollid = $data['id'];
+			$sql = "update `polls` set question='".addslashes($data['question'])."' where id='".$pollid."'";
+			$db->query($sql);
+			
+			//Get Poll Info	
+			$mypoll = new Poll();
+			$mypoll->getPoll($db, $pollid);	
+			$mypoll->getItems($db, $pollid);
+			
+			//Insert/Update Items
+			if(!empty($data['r1']))	{
+				if(empty($mypoll->r1)){
+					$sql = "insert into `poll_items` (value, label, pollid) VALUES('1', '".addslashes($data['r1'])."', '".$pollid."')";
+				} else {
+					$sql = "update `poll_items` set label='".addslashes($data['r1'])."' where pollid='".$pollid."' and value='1'";
+				}
+				$db->query($sql);
+			}
+			if(!empty($data['r2']))	{
+				if(empty($mypoll->r2)){
+					$sql = "insert into `poll_items` (value, label, pollid) VALUES('2', '".addslashes($data['r2'])."', '".$pollid."')";
+				} else {
+					$sql = "update `poll_items` set label='".addslashes($data['r2'])."' where pollid='".$pollid."' and value='2'";
+				}
+				$db->query($sql);
+			}
+			if(!empty($data['r3']))	{
+				if(empty($mypoll->r3)){
+					$sql = "insert into `poll_items` (value, label, pollid) VALUES('3', '".addslashes($data['r3'])."', '".$pollid."')";
+				} else {
+					$sql = "update `poll_items` set label='".addslashes($data['r3'])."' where pollid='".$pollid."' and value='3'";
+				}
+				$db->query($sql);
+			}
+			if(!empty($data['r4']))	{
+				if(empty($mypoll->r4)){
+					$sql = "insert into `poll_items` (value, label, pollid) VALUES('4', '".addslashes($data['r4'])."', '".$pollid."')";
+				} else {
+					$sql = "update `poll_items` set label='".addslashes($data['r4'])."' where pollid='".$pollid."' and value='4'";
+				}
+				$db->query($sql);
+			}
+			if(!empty($data['r5']))	{
+				if(empty($mypoll->r5)){
+					$sql = "insert into `poll_items` (value, label, pollid) VALUES('5', '".addslashes($data['r5'])."', '".$pollid."')";
+				} else {
+					$sql = "update `poll_items` set label='".addslashes($data['r5'])."' where pollid='".$pollid."' and value='5'";
+				}
+				$db->query($sql);
+			}
+		}
+		
+		//Deletes a specific poll
+		function deletePoll($db, $data){	
+			$pollid = $data['id'];
+			$sql = "delete from `polls` where id='".$pollid."'";
+			$db->query($sql);
 		}
 	}	//end polls class
 
