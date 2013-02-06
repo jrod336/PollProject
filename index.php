@@ -22,6 +22,7 @@
                 <li><a href="?option=create">Create a New Poll</a></li>
                 <li><a href="?option=update">Update an Existing Poll</a></li>
                 <li><a href="?option=delete">Delete an Existing Poll</a></li>
+                <li><a href="viewpoll.php">View all Polls</a></li>
             </ul>
         </div>
         <?

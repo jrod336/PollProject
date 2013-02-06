@@ -33,12 +33,8 @@ h3{
 .menucontainer{
 	margin-left: auto;
 	margin-right: auto;
-	width: 300px;
-}
-
-.mainmenu{
+	width: 400px;
 	text-align: left;
-	list-style-image: url(../images/create_icon.gif);
 }
 
 .menucontainer a{
@@ -50,4 +46,8 @@ h3{
 .menucontainer a:hover{
 	color: #333333;
 	text-decoration: none;
+}
+
+.mainmenu{
+	list-style-image: url(../images/create_icon.gif);
 }

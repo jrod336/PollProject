@@ -1,5 +1,6 @@
 <?
 	require 'inc/main.php';
+	require 'inc/polls.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,9 +14,7 @@
 <body>
 	<div id="main">
 	<?
-		$pollselected = false; 		//TEMP VARIABLE
-		if($pollselected){
-			$votefound = false;		//TEMP VARIABLE
+		if($option == 'viewpoll'){
 			//If vote found, display results
 			if($voteFound){
 	?>
@@ -38,11 +37,21 @@
 		} else {
 			//Display list of all available polls
 	?>
-    		<h3>Plese select a poll</h3>
-            <ul>
-            	<li>Poll 1</li>
-                <li>Poll 2</li>
-            </ul>
+    		<h1><img src="images/icon-poll.jpg" width="30" height="30" alt="Polls" /> View Polls</h1>
+    		<h3>Plese select a poll below</h3>
+            <div class="menucontainer">
+                <ul>
+                	<?
+						if(sizeof($mypolls) > 0){
+							foreach($mypolls as $row){
+					?>
+                    <li><a href="?pollid=<?= $row['id'] ?>"><?= $row['question'] ?></a></li>
+                    <?
+							}
+						}
+					?>
+                </ul>
+            </div>
     <?
 		}
 	?>

@@ -102,10 +102,28 @@
 			$db->query($sql);
 			$polls = array();
 			while($row = $db->nextRow()) {
-				$polls[] = $row['friend_id'];
+				$polls[] = $db->row;
 			}
 			return $polls;
 		}
-	}
+	} //end user class
+	
+	//Poll Class
+	class Poll{
+		public $pollid;
+		public $question;
+		public $userid;
+		
+		//Returns an array of polls for this user
+		function getPolls($db){
+			$sql = "select * from `polls`";
+			$db->query($sql);
+			$polls = array();
+			while($row = $db->nextRow()) {
+				$polls[] = $db->row;
+			}
+			return $polls;
+		}
+	}	//end poll class
 
 ?>
