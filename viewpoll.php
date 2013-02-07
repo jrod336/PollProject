@@ -7,7 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Voting Poll -- View Poll</title>
-<script type="text/javascript" src="js/ajax.js"></script>
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
 
@@ -16,35 +15,44 @@
 	<?
 		if($option == 'viewpoll'){
 			//If vote found, display results
-			if($voteFound){
+			if($mypoll->voteFound){
 	?>
     		<h3>Poll Results</h3>
-            <p><b><?= $poll->question ?></b></p>
-            <ul class="results">
-               <? if(!empty($poll->r1)) { ?><li><?= $poll->$r1 ?> X Votes</li><? } ?>
-               <? if(!empty($poll->r2)) { ?><li><?= $poll->$r2 ?> X Votes</li><? } ?>
-               <? if(!empty($poll->r3)) { ?><li><?= $poll->$r3 ?> X Votes</li><? } ?>
-               <? if(!empty($poll->r4)) { ?><li><?= $poll->$r4 ?> X Votes</li><? } ?>
-               <? if(!empty($poll->r5)) { ?><li><?= $poll->$r5 ?> X Votes</li><? } ?>
-            </ul>
+            <p><b><?= $mypoll->question ?></b></p>
+            <p><u>Total Votes:</u> <?= $mypoll->totalvotes ?></p>
+            <div class="menucontainer">
+                <ul class="results">
+                   <? if(!empty($mypoll->r1)) { ?><li><?= $mypoll->r1 ?> <?= $mypoll->r1votes ?> Vote(s)</li><? } ?>
+                   <? if(!empty($mypoll->r2)) { ?><li><?= $mypoll->r2 ?> <?= $mypoll->r2votes ?> Vote(s)</li><? } ?>
+                   <? if(!empty($mypoll->r3)) { ?><li><?= $mypoll->r3 ?> <?= $mypoll->r3votes ?> Vote(s)</li><? } ?>
+                   <? if(!empty($mypoll->r4)) { ?><li><?= $mypoll->r4 ?> <?= $mypoll->r4votes ?> Vote(s)</li><? } ?>
+                   <? if(!empty($mypoll->r5)) { ?><li><?= $mypoll->r5 ?> <?= $mypoll->r5votes ?> Vote(s)</li><? } ?>
+                </ul>
+            </div>
 		<?
 			//Check whether to display the poll or not
 			} else {
 		?>
 				<h3>Please Vote Below</h3>
 				 <form action="viewpoll.php" method="post">
-                 <p><b><?= $poll->question ?></b></p
-				<ul>
-					<? if(!empty($poll->r1)) { ?><li><input type="radio" name="vote" value="1" /> <?= $poll->$r1 ?></li><? } ?>
-				    <? if(!empty($poll->r2)) { ?><li><input type="radio" name="vote" value="2" /> <?= $poll->$r2 ?></li><? } ?>
-                    <? if(!empty($poll->r3)) { ?><li><input type="radio" name="vote" value="3" /> <?= $poll->$r3 ?></li><? } ?>
-                    <? if(!empty($poll->r4)) { ?><li><input type="radio" name="vote" value="4" /> <?= $poll->$r4 ?></li><? } ?>
-                    <? if(!empty($poll->r5)) { ?><li><input type="radio" name="vote" value="5" /> <?= $poll->$r5 ?></li><? } ?>
-				</ul>
-                	<input type="hidden" value="pollid" value="<?= $poll->pollid ?>" />
+                 <p><b><?= $mypoll->question ?></b></p>
+                <div class="menucontainer">
+                     <ul class="voting">
+                        <? if(!empty($mypoll->r1)) { ?><li><input type="radio" name="value" value="1" /> <?= $mypoll->r1 ?></li><? } ?>
+                        <? if(!empty($mypoll->r2)) { ?><li><input type="radio" name="value" value="2" /> <?= $mypoll->r2 ?></li><? } ?>
+                        <? if(!empty($mypoll->r3)) { ?><li><input type="radio" name="value" value="3" /> <?= $mypoll->r3 ?></li><? } ?>
+                        <? if(!empty($mypoll->r4)) { ?><li><input type="radio" name="value" value="4" /> <?= $mypoll->r4 ?></li><? } ?>
+                        <? if(!empty($mypoll->r5)) { ?><li><input type="radio" name="value" value="5" /> <?= $mypoll->r5 ?></li><? } ?>
+                    </ul>
+                 </div>
+                	<input type="hidden" value="pollid" value="<?= $mypoll->pollid ?>" />
+                    <input type="submit" value="Vote!" name="s_vote" />
                 </form>
 	<?
 			}
+	?>
+    		<p><a href="viewpoll.php">&laquo; Back to View Polls</a></p>
+    <?
 		} else {
 			//Display list of all available polls
 	?>

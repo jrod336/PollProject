@@ -148,12 +148,18 @@
 		public $pollid;
 		public $question;
 		public $userid;
-		public $r1;
-		public $r2;
-		public $r3;
-		public $r4;
-		public $r5;
+		public $r1 = '';
+		public $r2 = '';
+		public $r3 = '';
+		public $r4 = '';
+		public $r5 = '';
+		public $r1votes = 0;
+		public $r2votes = 0;
+		public $r3votes = 0;
+		public $r4votes = 0;
+		public $r5votes = 0;
 		public $totalvotes = 0;
+		public $voteFound = false;
 		
 		//Returns an array of polls for this user
 		function getPoll($db, $pollid){
@@ -187,7 +193,6 @@
 				if($data['value'] == 5) $this->r5 = stripslashes($data['label']); 
 				$poll_items[] = $data;
 			}
-			$this->items = $poll_items;
 			return $poll_items;
 		}
 		
@@ -197,10 +202,24 @@
 			$db->query($sql);
 			$polls = array();
 			while($row = $db->nextRow()) {
-				$votes[] = $db->row;
+				$data = $db->row;
+				if($data['ip'] == $_SERVER["REMOTE_ADDR"]) $this->voteFound = true;
+				if($data['value'] == 1) $this->r1votes++; 
+				if($data['value'] == 2) $this->r2votes++; 
+				if($data['value'] == 3) $this->r3votes++;  
+				if($data['value'] == 4) $this->r4votes++;  
+				if($data['value'] == 5) $this->r5votes++; 
+				$votes[] = $data;
 			}
 			$this->totalvotes = sizeof($votes);
 			return $votes;
+		}
+		
+		//Add a vote to this poll
+		function addVote($db, $pollid, $value){
+			$dt = date("Y-m-d H:i:s");
+			$sql = "insert into `votes` (pollid, value, dt, ip) values('".$pollid."', '".$value."', '".$dt."', '".$_SERVER["REMOTE_ADDR"]."')";
+			$db->query($sql);		
 		}
 		
 	}	//end poll class

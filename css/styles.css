@@ -69,3 +69,7 @@ h3{
 	vertical-align:top;
 	font-weight: bold;
 }
+
+.voting{
+	list-style-type:none;
+}
