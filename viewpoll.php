@@ -45,7 +45,7 @@
                         <? if(!empty($mypoll->r5)) { ?><li><input type="radio" name="value" value="5" /> <?= $mypoll->r5 ?></li><? } ?>
                     </ul>
                  </div>
-                	<input type="hidden" value="pollid" value="<?= $mypoll->pollid ?>" />
+                	<input type="hidden" name="pollid" value="<?= $mypoll->pollid ?>" />
                     <input type="submit" value="Vote!" name="s_vote" />
                 </form>
 	<?
@@ -57,7 +57,7 @@
 			//Display list of all available polls
 	?>
     		<h1><img src="images/icon-poll.jpg" width="30" height="30" alt="Polls" /> View Polls</h1>
-    		<h3>Plese select a poll below</h3>
+    		<h3>Plese select a poll below or <a href="index.php">create your own</a></h3>
             <div class="menucontainer">
                 <ul>
                 	<?
