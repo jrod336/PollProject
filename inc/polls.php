@@ -23,9 +23,6 @@
 		if(!$mypoll->voteFound){
 			$mypoll->addVote($db, $pollid, $value);
 		}
-		
-		//Recount the Votes for this poll
-		$mypoll->getVotes($db, $pollid);
 	} elseif(isset($_REQUEST['pollid'])){
 		//View a Poll
 		$pollid = $_REQUEST['pollid'];

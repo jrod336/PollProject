@@ -233,7 +233,19 @@
 		function addVote($db, $pollid, $value){
 			$dt = date("Y-m-d H:i:s");
 			$sql = "insert into `votes` (pollid, value, dt, ip) values('".$pollid."', '".$value."', '".$dt."', '".$_SERVER["REMOTE_ADDR"]."')";
-			$db->query($sql);		
+			$db->query($sql);	
+			$this->totalvotes++;	
+			if($value == 1) $this->r1votes++; 
+			if($value == 2) $this->r2votes++; 
+			if($value == 3) $this->r3votes++;  
+			if($value == 4) $this->r4votes++;  
+			if($value == 5) $this->r5votes++; 
+			$this->r1percent = number_format((($this->r1votes / $this->totalvotes) * 100), 1);
+			$this->r2percent = number_format((($this->r2votes / $this->totalvotes) * 100), 1);
+			$this->r3percent = number_format((($this->r3votes / $this->totalvotes) * 100), 1);  
+			$this->r4percent = number_format((($this->r4votes / $this->totalvotes) * 100), 1); 
+			$this->r5percent = number_format((($this->r5votes / $this->totalvotes) * 100), 1); 
+			$this->voteFound = true;
 		}
 		
 	}	//end poll class
