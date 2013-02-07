@@ -158,6 +158,11 @@
 		public $r3votes = 0;
 		public $r4votes = 0;
 		public $r5votes = 0;
+		public $r1percent = 0;
+		public $r2percent = 0;
+		public $r3percent = 0;
+		public $r4percent = 0;
+		public $r5percent = 0;
 		public $totalvotes = 0;
 		public $voteFound = false;
 		
@@ -212,6 +217,15 @@
 				$votes[] = $data;
 			}
 			$this->totalvotes = sizeof($votes);
+			
+			//Tally Percentages
+			if($this->totalvotes > 0){
+				$this->r1percent = number_format((($this->r1votes / $this->totalvotes) * 100), 1);
+				$this->r2percent = number_format((($this->r2votes / $this->totalvotes) * 100), 1);
+				$this->r3percent = number_format((($this->r3votes / $this->totalvotes) * 100), 1);  
+				$this->r4percent = number_format((($this->r4votes / $this->totalvotes) * 100), 1); 
+				$this->r5percent = number_format((($this->r5votes / $this->totalvotes) * 100), 1); 
+			}
 			return $votes;
 		}
 		

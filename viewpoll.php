@@ -8,6 +8,83 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Voting Poll -- View Poll</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
+<script type="text/javascript">
+	
+	//Adjusts the size of the bar1 based off the percentage of votes
+	function adjustBarSize1(fwidth){
+	   var bar = document.getElementById('r1bar');
+	   var w = bar.clientWidth;
+	   var finalw = fwidth*2;
+	   if (w < finalw) {
+			bar.style.width = w + 5 + "px";
+	   } else {
+			clearInterval(myBar1);
+	   }
+	}
+	
+	//Adjusts the size of the bar2 based off the percentage of votes
+	function adjustBarSize2(fwidth){
+	   var bar = document.getElementById('r2bar');
+	   var w = bar.clientWidth;
+	   var finalw = fwidth*2;
+	   if (w < finalw) {
+			bar.style.width = w + 5 + "px";
+	   } else {
+			clearInterval(myBar2);
+	   }
+	}
+	
+	//Adjusts the size of the bar3 based off the percentage of votes
+	function adjustBarSize3(fwidth){
+	   var bar = document.getElementById('r3bar');
+	   var w = bar.clientWidth;
+	   var finalw = fwidth*2;
+	   if (w < finalw) {
+			bar.style.width = w + 5 + "px";
+	   } else {
+			clearInterval(myBar3);
+	   }
+	}
+	
+	//Adjusts the size of the bar4 based off the percentage of votes
+	function adjustBarSize4(fwidth){
+	   var bar = document.getElementById('r4bar');
+	   var w = bar.clientWidth;
+	   var finalw = fwidth*2;
+	   if (w < finalw) {
+			bar.style.width = w + 5 + "px";
+	   } else {
+			clearInterval(myBar4);
+	   }
+	}
+	
+	//Adjusts the size of the bar5 based off the percentage of votes
+	function adjustBarSize5(fwidth){
+	   var bar = document.getElementById('r5bar');
+	   var w = bar.clientWidth;
+	   var finalw = fwidth*2;
+	   if (w < finalw) {
+			bar.style.width = w + 5 + "px";
+	   } else {
+			clearInterval(myBar5);
+	   }
+	}
+	
+	<? if($option == 'viewpoll' && $mypoll->voteFound){ ?>
+		var myBar1;
+		var myBar2;
+		var myBar3;
+		var myBar4;
+		var myBar5;
+		window.onload = function() {
+			<? if(!empty($mypoll->r1)) { ?>myBar1 = setInterval(function(){ adjustBarSize1(<?= $mypoll->r1percent ?>) },50);<? } ?>
+			<? if(!empty($mypoll->r2)) { ?>myBar2 = setInterval(function(){ adjustBarSize2(<?= $mypoll->r2percent ?>) },50);<? } ?>
+			<? if(!empty($mypoll->r3)) { ?>myBar3 = setInterval(function(){ adjustBarSize3(<?= $mypoll->r3percent ?>) },50);<? } ?>
+			<? if(!empty($mypoll->r4)) { ?>myBar4 = setInterval(function(){ adjustBarSize4(<?= $mypoll->r4percent ?>) },50);<? } ?>
+			<? if(!empty($mypoll->r5)) { ?>myBar5 = setInterval(function(){ adjustBarSize5(<?= $mypoll->r5percent ?>) },50);<? } ?>
+		}
+	<? } ?>
+</script>
 </head>
 
 <body>
@@ -22,11 +99,46 @@
             <p><u>Total Votes:</u> <?= $mypoll->totalvotes ?></p>
             <div class="menucontainer">
                 <ul class="results">
-                   <? if(!empty($mypoll->r1)) { ?><li><?= $mypoll->r1 ?> <?= $mypoll->r1votes ?> Vote(s)</li><? } ?>
-                   <? if(!empty($mypoll->r2)) { ?><li><?= $mypoll->r2 ?> <?= $mypoll->r2votes ?> Vote(s)</li><? } ?>
-                   <? if(!empty($mypoll->r3)) { ?><li><?= $mypoll->r3 ?> <?= $mypoll->r3votes ?> Vote(s)</li><? } ?>
-                   <? if(!empty($mypoll->r4)) { ?><li><?= $mypoll->r4 ?> <?= $mypoll->r4votes ?> Vote(s)</li><? } ?>
-                   <? if(!empty($mypoll->r5)) { ?><li><?= $mypoll->r5 ?> <?= $mypoll->r5votes ?> Vote(s)</li><? } ?>
+                   <? if(!empty($mypoll->r1)) { ?>
+                   		<li><?= $mypoll->r1 ?>  <div class="percentage"><?= $mypoll->r1votes ?> Vote(s)</div>
+                        	<ul class="innerResults">
+								<li><?= $mypoll->r1percent ?>%</li>
+                                <li><div id="r1bar"></div></li>
+                            </ul>
+                        </li>
+				   <? } 
+                    if(!empty($mypoll->r2)) { ?>
+                   		<li><?= $mypoll->r2 ?> <div class="percentage"><?= $mypoll->r2votes ?> Vote(s)</div>
+                        	<ul class="innerResults">
+								<li><?= $mypoll->r2percent ?>%</li>
+                                <li><div id="r2bar"></div></li>
+                            </ul>
+                        </li>
+				   <? }
+                    if(!empty($mypoll->r3)) { ?>
+                   		<li><?= $mypoll->r3 ?> <div class="percentage"><?= $mypoll->r3votes ?> Vote(s)</div>
+                        	<ul class="innerResults">
+								<li><?= $mypoll->r3percent ?>%</li>
+                                <li><div id="r3bar"></div></li>
+                            </ul>
+                        </li>
+					<? }
+                   if(!empty($mypoll->r4)) { ?>
+                   		<li><?= $mypoll->r4 ?> <div class="percentage"><?= $mypoll->r4votes ?> Vote(s)</div>
+                        	<ul class="innerResults">
+								<li><?= $mypoll->r4percent ?>%</li>
+                                <li><div id="r4bar"></div></li>
+                            </ul>
+                        </li>
+					<? } ?>
+                   <? if(!empty($mypoll->r5)) { ?>
+                   		<li><?= $mypoll->r5 ?> <div class="percentage"><?= $mypoll->r5votes ?> Vote(s)</div>
+                        	<ul class="innerResults">
+								<li><?= $mypoll->r5percent ?>%</li>
+                                <li><div id="r5bar"></div></li>
+                            </ul>
+                        </li>
+					<? } ?>
                 </ul>
             </div>
 		<?

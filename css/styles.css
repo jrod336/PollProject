@@ -73,3 +73,40 @@ h3{
 .voting{
 	list-style-type:none;
 }
+
+.innerResults{
+	list-style-type:none;
+}
+
+#r1bar{
+	height: 25px;
+	width:1px;
+	background-color: blue;
+	display: block;
+}
+
+#r2bar{
+	height: 25px;
+	width:1px;
+	background-color: red;
+}
+#r3bar{
+	height: 25px;
+	width:1px;
+	background-color: green;
+}
+#r4bar{
+	height: 20px;
+	width:1px;
+	background-color: orange;
+}
+#r5bar{
+	height: 25px;
+	width:1px;
+	background-color: purple;
+}
+.percentage{
+	vertical-align:top;
+	float: right;
+	font-style:italic;
+}
